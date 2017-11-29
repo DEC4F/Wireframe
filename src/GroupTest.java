@@ -159,10 +159,8 @@ public class GroupTest {
      * error guessing: entity already in group
      */
     @Test (expected = WireframeException.class)
-    public void testValidateEntityInGroup () throws Exception {
-        List<? extends WireframeEntity> entities = Arrays.asList(comboBox1);
-        group.group(entities);
-        Group.GroupTestHook.validateGrouping(comboBox1);
+    public void testValidateGroupingLastTest () throws Exception {
+        Group.GroupTestHook.validateGroupingLastTest(comboBox1);
     }
 
 }

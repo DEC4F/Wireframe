@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Group extends WireframeEntity {
@@ -117,7 +118,15 @@ public class Group extends WireframeEntity {
 
     static class GroupTestHook {
         static void validateGrouping(WireframeEntity entity) throws WireframeException {
-            Group group = new Group(0,0,0,0);
+            Group group = new Group(10,10,10,10);
+            group.validateGrouping(entity);
+        }
+
+        // customized test hook method for testing entity already in group
+        static void validateGroupingLastTest(WireframeEntity entity) throws WireframeException {
+            Group group = new Group(10,10,10,10);
+            List<? extends WireframeEntity> entities = Arrays.asList(entity);
+            group.group(entities);
             group.validateGrouping(entity);
         }
     }
