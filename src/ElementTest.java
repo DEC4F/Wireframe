@@ -56,7 +56,7 @@ public class ElementTest {
         assertEquals(paragraph1.getWidth(),2);
         paragraph1.setLocked(true);
         paragraph1.resize(11,22);
-        assertTrue(paragraph1.thrown);
+        assertTrue(paragraph1.isThrown());
     }
 
     /**
@@ -65,9 +65,9 @@ public class ElementTest {
      */
     @Test
     public void testDeleteNominal() throws Exception {
-        assertTrue(WireFrame.currentEntities.contains(paragraph1));
+        assertTrue(Wireframe.currentEntities.contains(paragraph1));
         paragraph1.delete();
-        assertTrue(!WireFrame.currentEntities.contains(paragraph1));
+        assertTrue(!Wireframe.currentEntities.contains(paragraph1));
     }
 
     /**
@@ -77,10 +77,10 @@ public class ElementTest {
      */
     @Test
     public void testDeleteLocked() throws Exception {
-        assertTrue(WireFrame.currentEntities.contains(paragraph1));
+        assertTrue(Wireframe.currentEntities.contains(paragraph1));
         paragraph1.setLocked(true);
         paragraph1.delete();
-        assertTrue(paragraph1.thrown);
+        assertTrue(paragraph1.isThrown());
     }
 
 }

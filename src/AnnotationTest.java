@@ -27,7 +27,7 @@ public class AnnotationTest {
     public void testAnnotateLocked () throws Exception {
         annotation1.setLocked(true);
         annotation1.annotate(paragraph1);
-        assertTrue(annotation1.thrown);
+        assertTrue(annotation1.isThrown());
     }
 
     /**

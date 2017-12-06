@@ -33,7 +33,7 @@ public class TextualElementTest {
     public void alignLocked() throws Exception {
         text1.setLocked(true);
         text1.align(TextAlignment.CENTER);
-        assertTrue(text1.thrown);
+        assertTrue(text1.isThrown());
     }
 
 }

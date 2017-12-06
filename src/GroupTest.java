@@ -13,6 +13,7 @@ public class GroupTest {
     private Headline headline1 = new Headline(40, 40, 40, 40);
     private ComboBox comboBox1 = new ComboBox(10,10,10,10);
     private ScrollBar scrollBar1 = new ScrollBar(7,7,7,7);
+    private Annotation annotation1 = new Annotation(100, 100, 100, 100, "LOL");
 
     /**
      * structural basis: assuming all condition is true
@@ -65,7 +66,7 @@ public class GroupTest {
         comboBox1.setLocked(true);
         List<? extends WireframeEntity> entities = Arrays.asList(comboBox1);
         group.group(entities);
-        assertTrue(group.thrown);
+        assertTrue(group.isThrown());
     }
 
     /**
@@ -77,7 +78,7 @@ public class GroupTest {
     public void testGroupAlreadyInGroup() throws Exception {
         List<? extends WireframeEntity> entities = Arrays.asList(paragraph1, paragraph1, headline1, scrollBar1);
         group.group(entities);
-        assertTrue(group.thrown);
+        assertTrue(group.isThrown());
     }
 
     /**
@@ -88,19 +89,19 @@ public class GroupTest {
     public void testDeleteNominal() throws Exception {
         List<? extends WireframeEntity> entities = Arrays.asList(paragraph1, headline1, scrollBar1);
         group.group(entities);
-        assertTrue(WireFrame.currentEntities.contains(group));
-        assertTrue(WireFrame.currentEntities.contains(paragraph1));
-        assertTrue(WireFrame.currentEntities.contains(headline1));
-        assertTrue(WireFrame.currentEntities.contains(scrollBar1));
+        assertTrue(Wireframe.currentEntities.contains(group));
+        assertTrue(Wireframe.currentEntities.contains(paragraph1));
+        assertTrue(Wireframe.currentEntities.contains(headline1));
+        assertTrue(Wireframe.currentEntities.contains(scrollBar1));
         assertTrue(group.getEntityList().contains(paragraph1));
         assertTrue(group.getEntityList().contains(headline1));
         assertTrue(group.getEntityList().contains(scrollBar1));
 
         group.delete();
-        assertTrue(!WireFrame.currentEntities.contains(group));
-        assertTrue(!WireFrame.currentEntities.contains(paragraph1));
-        assertTrue(!WireFrame.currentEntities.contains(headline1));
-        assertTrue(!WireFrame.currentEntities.contains(scrollBar1));
+        assertTrue(!Wireframe.currentEntities.contains(group));
+        assertTrue(!Wireframe.currentEntities.contains(paragraph1));
+        assertTrue(!Wireframe.currentEntities.contains(headline1));
+        assertTrue(!Wireframe.currentEntities.contains(scrollBar1));
         assertTrue(!group.getEntityList().contains(paragraph1));
         assertTrue(!group.getEntityList().contains(headline1));
         assertTrue(!group.getEntityList().contains(scrollBar1));
@@ -114,7 +115,7 @@ public class GroupTest {
     @Test
     public void testDeleteEmptyList() throws Exception {
         group.delete();
-        assertTrue(!WireFrame.currentEntities.contains(group));
+        assertTrue(!Wireframe.currentEntities.contains(group));
     }
 
     /**
@@ -130,7 +131,7 @@ public class GroupTest {
         comboBox1.setLocked(false);
         // do delete
         group.delete();
-        assertTrue(group.thrown);
+        assertTrue(group.isThrown());
     }
 
     /**
@@ -140,6 +141,17 @@ public class GroupTest {
     @Test
     public void testValidateGroupingNominal () throws Exception {
         Group.GroupTestHook.validateGrouping(comboBox1);
+    }
+
+    /**
+     * structural basis: assertion fails -- it's not kept in the entity list of wireframe class
+     * bad data: this entity is an annotation
+     * error guessing: this entity is an annotation
+     * FAILED: because annotation is not probably created due to incomplete UI
+     */
+    @Test (expected = AssertionError.class)
+    public void testValidateGroupingNotEntity () throws Exception {
+        Group.GroupTestHook.validateGrouping(annotation1);
     }
 
     /**

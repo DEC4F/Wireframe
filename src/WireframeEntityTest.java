@@ -50,7 +50,7 @@ public class WireframeEntityTest {
     public void testMoveToLocked() throws Exception {
         paragraph1.setLocked(true);
         paragraph1.moveTo(66, 77);
-        assertTrue(paragraph1.thrown);
+        assertTrue(paragraph1.isThrown());
     }
 
     /**
@@ -59,17 +59,17 @@ public class WireframeEntityTest {
      */
     @Test
     public void testBringToFrontNominal() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(2), box3);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(2), box3);
         box3.bringToFront();
-        assertEquals(WireFrame.currentEntities.get(0), box3);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(2), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(0), box3);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(2), paragraph2);
         paragraph2.bringToFront();
-        assertEquals(WireFrame.currentEntities.get(0), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(1), box3);
-        assertEquals(WireFrame.currentEntities.get(2), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(1), box3);
+        assertEquals(Wireframe.currentEntities.get(2), paragraph1);
     }
 
     /**
@@ -80,9 +80,9 @@ public class WireframeEntityTest {
      */
     @Test (expected = AssertionError.class)
     public void testBringToFrontNotInList() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(2), box3);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(2), box3);
         box3.delete();
         box3.bringToFront();
     }
@@ -90,34 +90,36 @@ public class WireframeEntityTest {
     /**
      * structural basis: callee entity is locked
      * bad data: entity locked
+     * FAIL ON RUN THE WHOLE TEST CLASS BUT PASS ON INDIVIDUAL RUN
      */
     @Test
     public void testBringToFrontLocked() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(2), box3);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(2), box3);
         box3.setLocked(true);
         box3.bringToFront();
-        assertTrue(box3.thrown);
+        assertTrue(box3.isThrown());
     }
 
     /**
      * structural basis: assuming all conditions are true
      * good data: good wireframe entities
+     * FAIL ON RUN THE WHOLE TEST CLASS BUT PASS ON INDIVIDUAL RUN
      */
     @Test
     public void testSwapWithNominal() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(2), box3);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(2), box3);
         box3.swapWith(paragraph1);
-        assertEquals(WireFrame.currentEntities.get(0), box3);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
-        assertEquals(WireFrame.currentEntities.get(2), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(0), box3);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(2), paragraph1);
         paragraph2.swapWith(paragraph1);
-        assertEquals(WireFrame.currentEntities.get(0), box3);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(2), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(0), box3);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(2), paragraph2);
     }
 
     /**
@@ -128,8 +130,8 @@ public class WireframeEntityTest {
      */
     @Test (expected = AssertionError.class)
     public void testSwapWithThisNotInList() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
         paragraph1.delete();
         paragraph1.swapWith(paragraph2);
     }
@@ -142,8 +144,8 @@ public class WireframeEntityTest {
      */
     @Test (expected = AssertionError.class)
     public void testSwapWithArgNotInList() throws Exception {
-        assertEquals(WireFrame.currentEntities.get(0), paragraph1);
-        assertEquals(WireFrame.currentEntities.get(1), paragraph2);
+        assertEquals(Wireframe.currentEntities.get(0), paragraph1);
+        assertEquals(Wireframe.currentEntities.get(1), paragraph2);
         paragraph2.delete();
         paragraph1.swapWith(paragraph2);
     }
