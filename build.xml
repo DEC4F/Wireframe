@@ -84,10 +84,10 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
       <junit fork="yes" includeAntRuntime="yes" printsummary="withOutAndErr">
         <formatter type="xml"/>
         <batchtest fork="yes" filtertrace="off" todir="${junit.dir}">
-	  <fileset dir="${build.dir}" includes="**/*Test.class"/>
+      <fileset dir="${build.dir}" includes="**/*Test.class"/>
         </batchtest>
         <classpath refid="hamcrest.classpath"/>
-	<classpath path="${build.dir}"/>
+    <classpath path="${build.dir}"/>
       </junit>
     </jacoco:coverage>
   </target>
@@ -114,7 +114,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
           <fileset dir="${src.dir}"/>
         </sourcefiles>
       </structure>
-                            
+      
       <html destdir="${jacoco.dir}"/>
     </jacoco:report>
   </target>
@@ -124,7 +124,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
     <mkdir dir="${doc.dir}"/>
     <javadoc destdir="${doc.dir}">
       <fileset dir="${src.dir}" defaultexcludes="yes">
-	<exclude name="**/*Test.java"/>
+    <exclude name="**/*Test.java"/>
       </fileset>
     </javadoc>
   </target>
